@@ -1,0 +1,134 @@
+PROJECT 'PORTO ILHA Test' ' '
+ 'PORTO ILHA test'
+ 'COMMENTS'
+ 
+&&&&&&&&&&&&&&&&&&&&&&&&&&&& 
+&&&	MODEL SETUP      &&&
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+
+MODE NONSTATIONARY TWODIMENSIONAL
+
+SET DEPMIN 0.10 INRHOG 0 NAUTICAL
+COORD SPHERICAL
+
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& 
+&&&	KEYWORD for number of nested SWAN grids.      &&&
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+
+NSGRIDS 2
+
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+&&	KEYWORDS TO CREATE AND READ COMPUTATIONAL GRID 	&&&
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+
+CGRID CURV 140 125 CIR 36 0.05 1 24 
+READGRID COORDINATES 1 'Projects/Porto_ilha_202404/swan_domains/swan_grid_d02_east.dat' 4 0 0 FREE 
+
+&&&&&&&&&&&&&&&&&&&&&&&&&&
+&&	WIND INPUT	&&&
+&&&&&&&&&&&&&&&&&&&&&&&&&&
+
+INPGRID WIND REGular -38.0 -6.0 0 11 10 0.25 0.25 NONSTAT 20240401.000000 1 HR 20240429.230000
+&READINP WIND 1 'Projects/Porto_ilha_202404/swan_domains/wind_era5_wind_era5_d02.wnd' 4 0 FREE 
+
+&WIND 10 90
+
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+&&	KEYWORDS TO CREATE AND READ BATHYMETRY GRID	 &&&
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+
+INPGRID  BOTTOM CURV 0 0 140 125 EXC 9.999000e+003 
+READINP BOTTOM -1 'Projects/Porto_ilha_202404/swan_domains/bathy_meqeast_d02.bot' 4 0 FREE  
+
+
+&& CURRENT INPUT &&
+
+&INPGRID CURRENT REGular -38.0 -6.0 0 33 30 0.083343505859375 0.08333587646484375 NONSTAT 20230601.000000 1 DAY 20230630.000000
+&READINP CURRENT 1 'Projects/Porto_ilha_202404/swan_domains/current_cmds_current_d02.dat' 4 0 FREE 
+
+
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+&&	WAVE BOUNDARY		&&& 
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+BOUND SHAPESPEC JONSWAP PEAK DSPR DEGREES
+
+
+&&&&&&&&&&&&&&&&&&&&&&&&&&
+&&	PHYSICS	&&&
+&&&&&&&&&&&&&&&&&&&&&&&&&&
+
+&GEN3
+&
+& Se somente ela for usada o valores de Hs ficam muito altos
+GEN3 ST6 2.8E-6 3.5E-5 4.0 4.0 UP HWANG VECTAU U10PROXY 32.0 AGROW 
+
+&GEN3 ST6 4.7E-7 6.6E-6 4.0 4.0 UP FAN VECTAU U10PROXY 28.0 AGROW
+
+&SSWELL ARDhuin 1.2
+
+FRICTION MADSEN 0.05
+&OFF QUAD
+
+&&&&&&&&&&&&&&&&&&&&&&&&&&
+&&	OUTPUT		&&&
+&&&&&&&&&&&&&&&&&&&&&&&&&&
+
+
+&BLOCK 'COMPGRID' NOHEADER 'depth.mat'  LAY 4 DEPTH 1.    OUTPUT 20000101.000000 1 HR
+&BLOCK 'COMPGRID' NOHEADER 'watlev.mat' LAY 4 WATLEV 1.   OUTPUT 20000101.000000 1 HR
+&BLOCK 'COMPGRID' NOHEADER 'botlev.mat' LAY 4 BOTLEV 1.   OUTPUT 20000101.000000 1 HR
+&BLOCK 'COMPGRID' NOHEADER 'vel.mat'    LAY 4 VEL 1.      OUTPUT 20000101.000000 1 HR
+$BLOCK 'COMPGRID' NOHEADER 'fric.mat'   LAY 4 FRCOEF  1.  OUTPUT 20000101.000000 1 HR
+$BLOCK 'COMPGRID' NOHEADER 'dissip.mat' LAY 4 DISSIP 1.   OUTPUT 20000101.000000 1 HR
+$BLOCK 'COMPGRID' NOHEADER 'hsig.mat'  LAY 4 HSIGN 1.    OUTPUT 20000101.000000 1 HR
+$BLOCK 'COMPGRID' NOHEADER 'rtp.mat'    LAY 4 RTP 1.      OUTPUT 20000101.000000 1 HR
+$BLOCK 'COMPGRID' NOHEADER 'tmbot.mat'  LAY 4 TMBOT 1.    OUTPUT 20000101.000000 1 HR
+$BLOCK 'COMPGRID' NOHEADER 'ubot.mat'   LAY 4 UBOT 1.     OUTPUT 20000101.000000 1 HR
+$BLOCK 'COMPGRID' NOHEADER 'wdir.mat'   LAY 4 DIR 1.      OUTPUT 20000101.000000 1 HR
+$BLOCK 'COMPGRID' NOHEADER 'wlen.mat'   LAY 4 WLEN 1.     OUTPUT 20000101.000000 1 HR
+$BLOCK 'COMPGRID' NOHEADER 'qb.mat'     LAY 4 QB 1.       OUTPUT 20000101.000000 1 HR
+
+&BLOCK 'COMPGRID' NOHEADER 'xp_d02.mat'     LAY 4 XP 1.       OUTPUT 20000101.000000 1 HR
+&BLOCK 'COMPGRID' NOHEADER 'yp_d02.mat'     LAY 4 YP 1.       OUTPUT 20000101.000000 1 HR
+&BLOCK 'COMPGRID' NOHEADER 'wind.mat'     LAY 4 WIND 1.       OUTPUT 20000101.000000 1 HR
+
+&& Source terms
+
+&BLOCK 'COMPGRID' NOHEADER 'genwind_source_swan.mat'  LAY 4 GENWIND 1.    OUTPUT 20170929.000000 1 HR
+
+&& WAVE Bulk Parameters 
+
+BLOCK 'COMPGRID' NOHEADER 'hsig_swan_d02.nc'   LAY 4 HSIGN 1.    OUTPUT 20230601.000000 1 HR
+BLOCK 'COMPGRID' NOHEADER 'mean_dir_swan.nc'   LAY 4 DIR 1.    OUTPUT 20230601.000000 1 HR
+BLOCK 'COMPGRID' NOHEADER 'peak_dir_swan.nc'   LAY 4 PDIR 1.    OUTPUT 20230601.000000 1 HR
+BLOCK 'COMPGRID' NOHEADER 'peak_tp_swan.nc'   LAY 4 RTP 1.    OUTPUT 20230601.000000 1 HR
+
+&& Wave partition
+
+&BLOCK 'COMPGRID' NOHEADER 'wave_part_swan.nc'   LAY 4 PARTIT 1.    OUTPUT 20170901.000000 1 HR
+&BLOCK 'COMPGRID' NOHEADER 'dir_part_swan.nc'   LAY 4 PTDIR 1.    OUTPUT 20170901.000000 1 HR
+&BLOCK 'COMPGRID' NOHEADER 'tp_part_swan.nc'   LAY 4 PTRTP 1.    OUTPUT 20170901.000000 1 HR
+
+&& Currents
+
+&BLOCK 'COMPGRID' NOHEADER 'current_swan.nc'   LAY 4 VEL 1.    OUTPUT 20170929.000000 1 HR
+
+& Wind 
+
+&BLOCK 'COMPGRID' NOHEADER 'wind_swan.nc'   LAY 4 WIND 1.    OUTPUT 20170901.000000 1 HR
+
+POINTS  'point2' -37.04 -4.8184
+SPECOUT 'point2' SPEC2D 'point2_porto_ilha.spc2d' OUTPUT 20240401.000000 1 HR
+TABLE   'point2' HEADER 'point2_porto_ilha.table' HSIGN DIR WLEN OUTPUT 20240401.000000 1 HR
+
+PROP BSBT
+RESTART 'swan_d02_rst.dat' FREE 1 HR
+
+&&&&&&&&&&&&&&&&&&&&&&&&&&
+&&	COMPUTATION    &&&
+&&&&&&&&&&&&&&&&&&&&&&&&&&
+
+COMPUTE NONSTATIONARY 20240401.000000 30 SEC 20240430.230000
+
+
+STOP
