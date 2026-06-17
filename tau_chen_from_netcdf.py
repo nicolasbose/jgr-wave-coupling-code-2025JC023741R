@@ -1,4 +1,4 @@
-"""Compute tau-Chen from a spectrum NetCDF created for the coupled WRF-SWAN run."""
+"""Compute tau-Chen from a spectrum NetCDF created from the coupled WRF-SWAN run."""
 
 from __future__ import annotations
 
