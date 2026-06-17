@@ -43,7 +43,7 @@ For the purpose of peer review, all necessary data, model outputs, and supportin
 │   └── coupling configuration
 │
 ├── database/        # Placeholder (data not included here)
-├── figures/         # Placeholder (figures not included here)
+├── figures/         
 ```
 
 ---
