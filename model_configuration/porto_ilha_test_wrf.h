@@ -23,7 +23,6 @@
 
 #if defined WRF_MODEL && (defined SWAN_MODEL || defined WW3_MODEL)
 # define DRAGLIM_DAVIS
-# undef COARE_TAYLOR_YELLAND
 # define DRENNAN
 #endif
 
