@@ -80,7 +80,7 @@ To reproduce the main results:
 ## Notes on Data Availability
 
 * Full-resolution datasets (e.g., NetCDF model outputs and LiDAR observations) are not included in this repository due to file size and access restrictions.
-* A subset of data and/or processed outputs sufficient for reproducibility isavailable upon request in the submitted manuscript.
+* A subset of data and/or processed outputs sufficient for reproducibility is available upon request in the submitted manuscript.
 
 ---
 
