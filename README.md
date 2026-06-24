@@ -72,6 +72,7 @@ To reproduce the main results:
 
 ## Data Sources
 
+* **COAWST**: publicly available
 * **ERA5 reanalysis data**: publicly available via the Copernicus Climate Data Store
 * **GEBCO bathymetry**: publicly available
 * **LiDAR wind observations**: proprietary dataset subject to institutional restrictions
@@ -82,16 +83,6 @@ To reproduce the main results:
 
 * Full-resolution datasets (e.g., NetCDF model outputs and LiDAR observations) are not included in this repository due to file size and access restrictions.
 * A subset of data and/or processed outputs sufficient for reproducibility is provided in the Supporting Information submitted with the manuscript.
-
----
-
-## Future Availability
-
-Upon acceptance of the manuscript:
-
-1. The full dataset and code will be made publicly available on GitHub
-2. The repository will be archived in Zenodo
-3. A DOI will be assigned and cited in the final publication
 
 ---
 
