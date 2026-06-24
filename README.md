@@ -24,8 +24,6 @@ Data and code archiving are currently underway.
 
 The authors plan to make all datasets and scripts publicly available through a GitHub repository, which will be permanently archived in Zenodo upon manuscript acceptance, ensuring long-term preservation and DOI assignment.
 
-For the purpose of peer review, all necessary data, model outputs, and supporting materials have been provided as **Supporting Information**.
-
 ---
 
 ## Repository Structure
